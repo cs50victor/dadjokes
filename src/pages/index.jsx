@@ -1,8 +1,6 @@
 import React from "react";
 import Layout from "../components/Layout";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
-import Card from "../components/Card"
+import {Link } from "gatsby";
 import "../styles/index.scss";
 
 const client = new ApolloClient({
@@ -11,10 +9,8 @@ const client = new ApolloClient({
 
 export default function Home() {
   return (
-    <ApolloProvider client={client}>
-      <Layout>
-        <Card/>
-      </Layout> 
-    </ApolloProvider>
+    <Layout>
+      <Link to="./testing">WTF</Link>
+    </Layout>
   )
 }
