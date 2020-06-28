@@ -2,14 +2,20 @@ module.exports = {
   plugins: [
     `gatsby-plugin-sass`,
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: 'gatsby-plugin-web-font-loader',
       options: {
-        fonts: [
-          {
-            family: `IBM Plex Sans`,
-            variants: [`400`,`700`]
-          }
-        ],
+        google: {
+          families: ["Inter"]
+        }
+      }
+    },
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "DADAPI",
+        fieldName: "dad",
+        url: "https://icanhazdadjoke.com/graphql",
+        refetchInterval: 15,
       },
     },
   ]
