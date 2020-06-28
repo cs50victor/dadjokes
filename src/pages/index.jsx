@@ -14,7 +14,7 @@ export const GATSBY_QUERY = graphql`
   }
 `;
 
-export default function  ({data:{dad:{joke}}}){
+export default function Home ({data:{dad:{joke}}}){
   const [timeLeft, setTimeLeft] = useState(15);
   const [newJoke, setNewJoke] = useState();
 
