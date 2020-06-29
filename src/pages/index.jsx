@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Layout from "../components/Layout";
 import { graphql } from "gatsby";
+import { Helmet } from "react-helmet";
 import typical from "../assets/bald-man.svg";
 import "../styles/index.scss";
 
@@ -18,10 +19,12 @@ export default function Home ({data:{dad:{joke}}}){
   const [timeLeft, setTimeLeft] = useState(15);
   const [newJoke, setNewJoke] = useState();
 
-  const firstJoke = `${joke.joke}`;
+  
   //!------------------------------------------------------
    //? clearInterval and setInterval helped solve the time glitch problem
-  useEffect(()=>{
+   const firstJoke = `${joke.joke}`;
+   useEffect(()=>{
+    
     setNewJoke(`${joke.joke}`);
     if (timeLeft < 0){
       setTimeLeft(15);
@@ -38,7 +41,7 @@ export default function Home ({data:{dad:{joke}}}){
       clearInterval(id);
     };
 
-  }, [timeLeft, newJoke, firstJoke, joke.joke]);
+  }, [timeLeft, newJoke]);
 
   /*if (timeLeft === 0 || newJoke !== firstJoke){
     setTimeLeft(15);
@@ -49,6 +52,10 @@ export default function Home ({data:{dad:{joke}}}){
   //!------------------------------------------------------
   return(
   <Layout>
+    <Helmet>
+            <title>Dad Jokes</title>
+            <meta name="image" content={typical} />
+    </Helmet>
     <div className="card text-center">
       <div className="card-header m-2">
         15 seconds Dad Jokes
