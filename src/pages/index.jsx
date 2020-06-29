@@ -54,11 +54,10 @@ export default function Home ({data:{dad:{joke}}}){
   <Layout>
     <Helmet>
             <title>Dad Jokes</title>
-            <meta name="image" content={typical} />
     </Helmet>
     <div className="card text-center">
       <div className="card-header m-2">
-        15 seconds Dad Jokes
+        Dad Jokes (15s)
       </div>
       <div className="card-body">
         <img src={typical}  className="img-fluid" alt="" width="150px"/>

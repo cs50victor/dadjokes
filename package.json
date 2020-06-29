@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-starter-hello-world",
+  "name": "dad-jokes",
   "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
+  "description": "Dad Jokes every 15 seconds",
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
+    "express": "^4.17.1",
     "gatsby": "^2.22.15",
     "gatsby-plugin-react-helmet": "^3.3.6",
     "gatsby-plugin-sass": "^2.3.3",
