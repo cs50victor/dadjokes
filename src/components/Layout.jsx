@@ -10,7 +10,18 @@ const Layout =({children})=> {
             </Container>
         </main>
         <footer>
-            <Container>
+            <Container fluid="sm">
+              <small>
+                All jokes are gotten from {" "}
+                <a href="https://icanhazdadjoke.com">
+                    icanhazdadjoke.com
+                </a>
+                <br/>
+                "Table" by yryabchenko is licensed 
+                under Creative Commons Attribution. 
+                https://skfb.ly/6BYHM To view a copy of this license, 
+                visit http://creativecommons.org/licenses/by/4.0/.
+              </small>
             </Container>
         </footer>
     </React.Fragment> 

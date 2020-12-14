@@ -9,15 +9,6 @@ module.exports = {
           families: ["Inter"]
         }
       }
-    },
-    {
-      resolve: "gatsby-source-graphql",
-      options: {
-        typeName: "DADAPI",
-        fieldName: "dad",
-        url: "https://icanhazdadjoke.com/graphql",
-        refetchInterval: 15,
-      },
-    },
+    }
   ]
 }
