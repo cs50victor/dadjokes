@@ -33,9 +33,6 @@ html, body, #___gatsby{
 body {
   overflow-x: hidden;
 }
-canvas{
-  min-height: 600px !important;
-}
 
 header,
 footer {

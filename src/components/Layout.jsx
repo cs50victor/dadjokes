@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
       >
         {children}
       </main>
-      <footer className="text-center py-10">
+      <footer className="text-center py-5">
         <div className="container mx-auto">
           <small className="text-base">
             Designed and made by {" "}

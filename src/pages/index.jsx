@@ -229,6 +229,7 @@ const Home = () => {
       </div>
       <Canvas
         className="z-5"
+        style={{minHeight: "600px"}}
         camera={{
           // near: 1,
           // far: 10,
