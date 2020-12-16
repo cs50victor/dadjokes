@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useRef, Suspense } from "react"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import Flickity from "react-flickity-component"
+import React, { useEffect, useState, useRef, Suspense } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Flickity from "react-flickity-component";
 
-import { Canvas } from "react-three-fiber"
-import { useGLTF, OrbitControls, useProgress, Html} from "@react-three/drei"
+import { Canvas } from "react-three-fiber";
+import { useGLTF, OrbitControls, useProgress, Html} from "@react-three/drei";
 
 import Layout from "../components/Layout";
 import haha from "../assets/haha.png";
-
-
+import "flickity/dist/flickity.min.css";
 
 gsap.registerPlugin(ScrollTrigger)
+
 
 const Loading=()=>{
   const { progress, errors} = useProgress()
