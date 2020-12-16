@@ -1,14 +1,23 @@
 module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sass`,
     {
-      resolve: 'gatsby-plugin-web-font-loader',
+      resolve: "gatsby-plugin-web-font-loader",
       options: {
         google: {
-          families: ["Inter"]
-        }
-      }
-    }
-  ]
+          families: ["Inter"],
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-postcss`,
+      options: {
+        postCssPlugins: [require(`tailwindcss`)(`./tailwind.config.js`)],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: { tailwind: true },
+    },
+  ],
 }

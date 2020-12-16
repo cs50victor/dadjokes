@@ -1,31 +1,42 @@
-import React from "react";
-import {Container} from "react-bootstrap";
+import React from "react"
+import { Helmet } from "react-helmet"
 
-const Layout =({children})=> {
+const Layout = ({ children }) => {
   return (
     <React.Fragment>
-        <main>
-            <Container className="text-center">
-                 {children}
-            </Container>
-        </main>
-        <footer>
-            <Container fluid="sm">
-              <small>
-                All jokes are gotten from {" "}
-                <a href="https://icanhazdadjoke.com">
-                    icanhazdadjoke.com
-                </a>
-                <br/>
-                "Table" by yryabchenko is licensed 
-                under Creative Commons Attribution. 
-                https://skfb.ly/6BYHM To view a copy of this license, 
-                visit http://creativecommons.org/licenses/by/4.0/.
-              </small>
-            </Container>
-        </footer>
-    </React.Fragment> 
+      <Helmet>
+        <title>Dad Jokes</title>
+      </Helmet>
+      <main className="flex 
+        flex-col 
+        justify-between 
+        content-center
+        text-center"
+      >
+        {children}
+      </main>
+      <footer className="text-center py-10">
+        <div className="container mx-auto">
+          <small className="text-base">
+            All jokes are gotten from{" "}
+            <a className="text-red-800 underline" href="https://icanhazdadjoke.com">
+              icanhazdadjoke.com
+            </a>
+            <br />
+            3D Model from{" "}
+            <a className="text-red-800 underline" href="https://skfb.ly/6BYHM">
+              Sketchfab
+            </a>
+            <br />
+            Designed and made by {" "}
+            <a className="text-red-800 underline" href="https://victoruniverse.com">
+              Victor
+            </a>
+          </small>
+        </div>
+      </footer>
+    </React.Fragment>
   )
 }
 
-export default Layout;
+export default Layout

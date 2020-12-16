@@ -1,180 +1,252 @@
-import React, {useEffect, useState, useRef, Suspense} from "react";
-import { Helmet } from "react-helmet";
-import {gsap} from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useEffect, useState, useRef, Suspense } from "react"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import Flickity from "react-flickity-component"
 
-
-import {Canvas,useFrame,useThree,useLoader} from "react-three-fiber";
-import {useGLTF ,Sky,OrbitControls,Html} from "@react-three/drei";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import {useSpring} from "@react-spring/core";
-import { a } from "@react-spring/three";
+import { Canvas } from "react-three-fiber"
+import { useGLTF, Sky, OrbitControls, useProgress, Html} from "@react-three/drei"
 
 import Layout from "../components/Layout";
-import typical from "../assets/bald-man.svg";
-import "../styles/index.scss";
+import oldguy from "../assets/bald-man.svg";
+import cardbg from "../assets/cardbg.jpg";
+import haha from "../assets/haha.png";
 
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
 
-const ModelToUse =()=> {
+const Loading=()=>{
+  const { active, progress, errors, item, loaded, total } = useProgress()
+  return <Html center>{progress} % loaded</Html>
+}
 
-  const group = useRef();
-  //const { nodes } = useGLTF("../assets/table/scene.gltf");
-  const { nodes, materials } = useGLTF("https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf","/draco-gltf/");
-  console.log(nodes)
-  console.log(materials)
+
+const Model = ({ url, color, base }) => {
+  const group = useRef()
+
+  const { nodes, materials } = useGLTF(url, "/draco-gltf/")
+  //console.log(nodes)
+  //console.log(materials)
+
   return (
     <group ref={group} dispose={null} castShadow receiveShadow>
-      <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group rotation={[Math.PI / 2, 0, 0]}>
+      <group rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.85, 0]} scale={[0.6, 0.6, 0.6]}>
+        <group rotation={[Math.PI / 2.1, 0, 0]}>
           <mesh
-            geometry={nodes["node_damagedHelmet_-6514"].geometry}
-            material={materials["Material_MR"]}
-            material-color={"#8B4513"}
+            geometry={nodes["polySurface37_blinn1_0"].geometry}
+            material-color={base}
+          />
+          <mesh
+            geometry={nodes["polySurface37_lambert2_0"].geometry}
+            material={materials.lambert2}
+            material-color={color}
           />
         </group>
       </group>
     </group>
-  );
-};
+  )
+}
 
-const Home =()=>{
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [dadJokes, setDadJokes] = useState([]);
-  const pinStartRef = useRef(null);
-  const jokeRefs = useRef([]);
-  jokeRefs.current = [];
+const JokeCards = () => {
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+  const [dadJokes, setDadJokes] = useState([])
 
+  const getJokes = () => {
+    const pageNo = Math.floor(Math.random() * 32) + 1
+    const pageUrl = "https://icanhazdadjoke.com/search?page=" + pageNo
 
-  useEffect(()=>{
-    //fetching data from the api
-     const pageNo = Math.floor(Math.random() * 32) + 1; 
-     const pageUrl = "https://icanhazdadjoke.com/search?page=" + pageNo
-
-     fetch(pageUrl, {
-       method: "GET",
-       headers:{
-          Accept: "application/json",
-       }
-     })
-     .then(response => response.json())
-     .then(data => {
+    fetch(pageUrl, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
         setDadJokes(data.results)
         setLoading(false)
       })
-      .catch(err=>{setError(true);console.log(err);})
-  }, []);
+      .catch(err => {
+        setError(true)
+        console.log(err)
+      })
+  }
 
   useEffect(() => {
-    //! for animation
-
-    //jokeRefs.current.forEach((el, index) => {  
-
-    //  ScrollTrigger.create({
-    //      id: `joke-${index+1}`,
-    //      trigger: el,
-    //      start: "top top",
-    //      pin: true,
-    //      pinSpacing:false,
-    //      anticipatePin: 1
-    //  });
-
-    //});
+    //fetching data from the api
+    getJokes()
   }, [])
 
-  
-  const addToRefs = (el)=> {
-    if (el && !jokeRefs.current.includes(el)) {
-        jokeRefs.current.push(el);
-    }
-  };
-  
-  return(
+  return (
     <>
-      <Helmet>
-          <title>Dad Jokes</title>
-      </Helmet>
-      <Layout >
-        <div className="card-header bg-white mt-5">
-          Dad Jokes....
-        </div>
-        <section 
-          className="bg-dark my-5 py-5"
-          ref={pinStartRef}
-        >
-          {loading ? 
-            (
-            <div className="card text-center">
-              <div className="card-header m-2">
-                Preparing Dad Jokes....
-              </div>
-              <div className="text-center my-5">
-                  <div className="spinner-border" role="status">
-                  </div>
-                </div>
-            </div>
-          ):
-          ""
-          }
-          
-          {!error && !loading && dadJokes.map(({id, joke})=>(
-            <div 
-              className="card text-center my-4"
-              ref={addToRefs} 
-              key={id}
+      <div
+        className="
+        relative
+        max-w-screen-lg 
+        w-full
+        my-5 
+        bg-transparent
+        p-3
+        mx-auto
+      "
+      >
+        <Flickity options={{ pageDots: false }}>
+          {loading ? (
+            <div
+              className="
+                bg-white 
+                shadow-2xl
+                text-center 
+                w-60
+                sm:w-80
+                p-3
+                mr-5
+                sm:mr-7
+                h-96
+                rounded"
             >
-              <div className="card-body">
-              <img src={typical}  className="img-fluid" alt="old dad" width="150px"/>
-              <h5 className="card-title p-4">
-                {joke}
-              </h5>
+              <p className="text-lg font-semibold">Preparing Dad Jokes....</p>
+              <div className="text-center my-5">
+                <svg
+                  className="animate-spin h-10 w-10 ..."
+                  viewBox="0 0 24 24"
+                ></svg>
               </div>
             </div>
-          ))}
-        </section>
-        
-      </Layout>
-      <Canvas 
-          style={{height:"100vh" }}
-          camera={{
-            // near: 1,
-            // far: 10,
-            position: [0, 0.2, 4],
-          }}
-          shadowMap
-        >
-          <OrbitControls 
-            enablePan={true}
-            enableZoom={true}
-            enableDamping
-            dampingFactor={0.5}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 2}
-          />
-          <ambientLight intensity={4} />
-          <pointLight intensity={6} position={[-10, -25, -10]} />
-          <spotLight
-            castShadow
-            intensity={8}
-            angle={Math.PI / 8}
-            position={[25, 25, 15]}
-            shadow-mapSize-width={2048}
-            shadow-mapSize-height={2048}
-          />
-          <Suspense fallback={null}>
-            <ModelToUse/>
-          </Suspense>
-          <Sky 
-            azimuth={0.5} 
-            turbidity={10} 
-            rayleigh={0.5} 
-            inclination={0.6}
-            distance={100000}
-          />
-        </Canvas>
+          ) : (
+            ""
+          )}
+
+          {!error &&
+            !loading &&
+            dadJokes.map(({ id, joke }) => (
+              <div
+                className="
+                bg-black
+                text-white
+                shadow-2xl
+                text-center 
+                w-60
+                sm:w-80
+                p-3
+                mr-5
+                sm:mr-7
+                h-96
+                rounded-3xl
+                flex 
+                content-center 
+                justify-center
+                bg-repeat-y 
+                bg-left-top
+                border
+                border-black
+                border-opacity-30
+                "
+                style={{ backgroundImage: `url(${haha})` }}
+                key={id}
+              >
+                <div className="
+                  flex 
+                  content-center 
+                  justify-center 
+                  flex-wrap 
+                  my-auto
+                  "
+                  >
+                  <p className="text-lg font-semibold">{joke}</p>
+                </div>
+              </div>
+            ))}
+        </Flickity>
+      </div>
+      <button
+        onClick={getJokes}
+        className="
+          bg-red-800 
+          hover:bg-red-700
+          w-50
+          p-3
+          text-white
+          text-base
+          font-bold
+          mx-auto
+          rounded-md
+          mt-8
+          mb-40
+          focus:ring-2
+          "
+      >
+        New Dad Jokes
+      </button>
     </>
   )
-};
-export default Home;
+}
+
+const Home = () => {
+  return (
+    <Layout>
+      <div
+        className="
+        absolute
+        w-screen
+        top-20 
+        ">
+        <h1
+          className="
+          text-red-800
+          left-2/4
+          z-4
+          text-center
+          font-extrabold
+          text-8xl
+          md:text-9xl"
+        >
+          DAD
+          <br />
+          <span>JOKES</span>
+        </h1>
+      </div>
+      <Canvas
+        className="z-5"
+        camera={{
+          // near: 1,
+          // far: 10,
+          position: [3, 3.9, 4],
+        }}
+        shadowMap>
+        <OrbitControls
+          autoRotate
+          enablePan={false}
+          enableZoom={false}
+          enableDamping
+          dampingFactor={0.5}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2}
+        />
+        <ambientLight intensity={4} />
+        <pointLight intensity={6} position={[-10, -25, -10]} />
+        <spotLight
+          castShadow
+          intensity={8}
+          angle={Math.PI / 8}
+          position={[25, 25, 15]}
+          shadow-mapSize-width={2048}
+          shadow-mapSize-height={2048}
+        />
+        <Suspense fallback={<Loading/>}>
+          <Model url="/scene.gltf" color="#ffe4b5" base="#342826" />
+        </Suspense>
+      </Canvas>
+      <JokeCards />
+    </Layout>
+  )
+}
+export default Home
+
+// <HtmlContent/>
+// Canvas: object is used to draw graphics on your screen
+// scene: holds 3d objects on the screen
+// camera: A viewer that allows you to look at all surroundings and objects in the scene
+// 3d objects: things like camera, mesh, lights models etc
+// -> scene(mesh(geometry, material)) + lights
+//
