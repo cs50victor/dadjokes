@@ -8,6 +8,7 @@ import { useGLTF, OrbitControls, useProgress, Html} from "@react-three/drei"
 
 import Layout from "../components/Layout";
 import haha from "../assets/haha.png";
+import "../styles/flickity.min.css";
 
 
 gsap.registerPlugin(ScrollTrigger)
