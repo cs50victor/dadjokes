@@ -42,7 +42,7 @@ const Loading=()=>{
 }
 
 
-const Model = ({ url, color, base }) => {
+const Model = ({ url, base }) => {
   const group = useRef()
 
   const { nodes, materials } = useGLTF(url, "/draco-gltf/")
@@ -60,7 +60,6 @@ const Model = ({ url, color, base }) => {
           <mesh
             geometry={nodes["polySurface37_lambert2_0"].geometry}
             material={materials.lambert2}
-            material-color={color}
           />
         </group>
       </group>
@@ -259,7 +258,6 @@ const Home = () => {
         <Suspense fallback={<Loading/>}>
           <Model 
             url="/scene.gltf" 
-            color="#ffe4b5" 
             base="#342826" 
           />
         </Suspense>
