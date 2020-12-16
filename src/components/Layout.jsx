@@ -18,6 +18,11 @@ const Layout = ({ children }) => {
       <footer className="text-center py-10">
         <div className="container mx-auto">
           <small className="text-base">
+            Designed and made by {" "}
+            <a className="text-red-800 underline" href="https://victoruniverse.com">
+              Victor
+            </a>
+            <br />
             All jokes are gotten from{" "}
             <a className="text-red-800 underline" href="https://icanhazdadjoke.com">
               icanhazdadjoke.com
@@ -26,11 +31,6 @@ const Layout = ({ children }) => {
             3D Model from{" "}
             <a className="text-red-800 underline" href="https://skfb.ly/6BYHM">
               Sketchfab
-            </a>
-            <br />
-            Designed and made by {" "}
-            <a className="text-red-800 underline" href="https://victoruniverse.com">
-              Victor
             </a>
           </small>
         </div>

@@ -4,19 +4,40 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Flickity from "react-flickity-component"
 
 import { Canvas } from "react-three-fiber"
-import { useGLTF, Sky, OrbitControls, useProgress, Html} from "@react-three/drei"
+import { useGLTF, OrbitControls, useProgress, Html} from "@react-three/drei"
 
 import Layout from "../components/Layout";
-import oldguy from "../assets/bald-man.svg";
-import cardbg from "../assets/cardbg.jpg";
 import haha from "../assets/haha.png";
 
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Loading=()=>{
-  const { active, progress, errors, item, loaded, total } = useProgress()
-  return <Html center>{progress} % loaded</Html>
+  const { progress, errors} = useProgress()
+  return (
+    <Html center>
+        {errors ? 
+        (
+          <h6 className="
+            text-3xl
+            font-bold
+            afterSuspense
+          ">
+          {progress} % loaded
+          </h6>
+        )
+        : 
+        (
+          <h6 className="
+            text-3xl
+            font-bold
+          ">
+          Error Loading 3D Model
+          </h6>
+        )
+        }
+    </Html>
+  );
 }
 
 
@@ -153,7 +174,7 @@ const JokeCards = () => {
                   my-auto
                   "
                   >
-                  <p className="text-lg font-semibold">{joke}</p>
+                  <p className="text-lg font-semibold ">{joke}</p>
                 </div>
               </div>
             ))}
@@ -234,7 +255,11 @@ const Home = () => {
           shadow-mapSize-height={2048}
         />
         <Suspense fallback={<Loading/>}>
-          <Model url="/scene.gltf" color="#ffe4b5" base="#342826" />
+          <Model 
+            url="/scene.gltf" 
+            color="#ffe4b5" 
+            base="#342826" 
+          />
         </Suspense>
       </Canvas>
       <JokeCards />

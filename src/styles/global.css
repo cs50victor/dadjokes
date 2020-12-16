@@ -42,4 +42,16 @@ footer {
   width: 100%;
 }
 
+.afterSuspense{
+  animation: appearAfterLoad 2s linear;
+}
+@keyframes appearAfterLoad {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @import "flickity.min.css";
