@@ -34,7 +34,7 @@ body {
   overflow-x: hidden;
 }
 canvas{
-  min-height: 600px;
+  min-height: 600px !important;
 }
 
 header,
